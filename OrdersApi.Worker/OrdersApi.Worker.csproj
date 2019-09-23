@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.0</TargetFramework>
+		<UserSecretsId>dotnet-OrdersApi.Worker-7A241A57-D8CB-4DED-B973-8BE5C64BC418</UserSecretsId>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="RabbitMQ.Client" Version="5.1.1" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0" />
+	</ItemGroup>
+</Project>
