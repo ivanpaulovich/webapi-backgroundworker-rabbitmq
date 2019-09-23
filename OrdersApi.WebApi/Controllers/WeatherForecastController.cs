@@ -17,15 +17,19 @@ namespace OrdersApi.WebApi.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IPublisher _publisher;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IPublisher publisher)
         {
             _logger = logger;
+            _publisher = publisher;
         }
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            _publisher.Publish(DateTime.Now.ToString());
+
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

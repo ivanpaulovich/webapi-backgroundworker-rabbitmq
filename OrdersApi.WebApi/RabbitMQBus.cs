@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using RabbitMQ.Client;
 
 namespace OrdersApi.WebApi
@@ -13,13 +12,15 @@ namespace OrdersApi.WebApi
             var connection = factory.CreateConnection();
 
             _channel = connection.CreateModel();
-            _channel.QueueDeclare(queue: "userInsertMsgQ", durable : false, exclusive : false, autoDelete : false, arguments : null);
+            _channel.ExchangeDeclare("exchangeName", ExchangeType.Direct);
+            _channel.QueueDeclare("queueName", false, false, false, null);
+            _channel.QueueBind("queueName", "exchangeName", "routingKey", null);
         }
 
         public void Publish(string message)
         {
-            byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
-            _channel.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
+            byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes(message);
+            _channel.BasicPublish("exchangeName", "routingKey", null, messageBodyBytes);
         }
     }
 }
