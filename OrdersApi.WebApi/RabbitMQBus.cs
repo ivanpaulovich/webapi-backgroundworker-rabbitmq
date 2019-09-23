@@ -1,16 +1,25 @@
+using System.Threading.Tasks;
 using RabbitMQ.Client;
 
 namespace OrdersApi.WebApi
 {
     public class RabbitMQBus : IPublisher
     {
+        private readonly IModel _channel;
+
         public RabbitMQBus()
         {
             var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
             var connection = factory.CreateConnection();
 
-            var channel = connection.CreateModel();
-            channel.QueueDeclare(queue: "userInsertMsgQ", durable: false, exclusive: false, autoDelete: false, arguments: null);
+            _channel = connection.CreateModel();
+            _channel.QueueDeclare(queue: "userInsertMsgQ", durable : false, exclusive : false, autoDelete : false, arguments : null);
+        }
+
+        public void Publish(string message)
+        {
+            byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes("Hello, world!");
+            _channel.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
         }
     }
 }
