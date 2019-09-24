@@ -12,15 +12,15 @@ namespace OrdersApi.WebApi
             var connection = factory.CreateConnection();
 
             _channel = connection.CreateModel();
-            _channel.ExchangeDeclare("exchangeName", ExchangeType.Direct);
-            _channel.QueueDeclare("queueName", false, false, false, null);
-            _channel.QueueBind("queueName", "exchangeName", "routingKey", null);
+            _channel.QueueDeclare("Q1", true, false, false, null);
         }
 
         public void Publish(string message)
         {
             byte[] messageBodyBytes = System.Text.Encoding.UTF8.GetBytes(message);
-            _channel.BasicPublish("exchangeName", "routingKey", null, messageBodyBytes);
+            _channel.BasicPublish(string.Empty,
+                    "Q1", basicProperties: null,
+                    body: messageBodyBytes);
         }
     }
 }
