@@ -4,4 +4,14 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Orders.Domain\Orders.Domain.csproj" />
+    <ProjectReference Include="..\Orders.Application\Orders.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+		<PackageReference Include="RabbitMQ.Client" Version="5.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+	</ItemGroup>
+
 </Project>

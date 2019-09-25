@@ -1,0 +1,3 @@
+/Users/ivanpaulovich/git/OrdersApi/src/Orders.Application/obj/Debug/netstandard2.0/Orders.Application.csprojAssemblyReference.cache
+/Users/ivanpaulovich/git/OrdersApi/src/Orders.Application/obj/Debug/netstandard2.0/Orders.Application.AssemblyInfoInputs.cache
+/Users/ivanpaulovich/git/OrdersApi/src/Orders.Application/obj/Debug/netstandard2.0/Orders.Application.AssemblyInfo.cs

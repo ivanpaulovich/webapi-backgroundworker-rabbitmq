@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Orders.Application.Boundaries.PlaceOrder;
 
-namespace OrdersApi.WebApi.Controllers
+namespace OrdersApi.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
