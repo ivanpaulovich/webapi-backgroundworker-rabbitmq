@@ -1,0 +1,144 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETCoreApp,Version=v3.0": {
+      "RabbitMQ.Client/5.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/RabbitMQ.Client.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/RabbitMQ.Client.dll": {}
+        }
+      },
+      "Orders.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Orders.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Orders.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Orders.Application.dll": {}
+        }
+      },
+      "Orders.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/Orders.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Orders.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "RabbitMQ.Client/5.1.1": {
+      "sha512": "ApUZXLujbNGDceSQGv3b1FkoFeUwuWR9PTkw0Iwsd5ivzcjCMegq6zIFPXDEFjEoMgUOHuNWjNnFpmFl5HQ50Q==",
+      "type": "package",
+      "path": "rabbitmq.client/5.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net451/RabbitMQ.Client.dll",
+        "lib/net451/RabbitMQ.Client.xml",
+        "lib/netstandard1.5/RabbitMQ.Client.dll",
+        "lib/netstandard1.5/RabbitMQ.Client.xml",
+        "lib/netstandard2.0/RabbitMQ.Client.dll",
+        "lib/netstandard2.0/RabbitMQ.Client.xml",
+        "rabbitmq.client.5.1.1.nupkg.sha512",
+        "rabbitmq.client.nuspec"
+      ]
+    },
+    "Orders.Application/1.0.0": {
+      "type": "project",
+      "path": "../Orders.Application/Orders.Application.csproj",
+      "msbuildProject": "../Orders.Application/Orders.Application.csproj"
+    },
+    "Orders.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Orders.Domain/Orders.Domain.csproj",
+      "msbuildProject": "../Orders.Domain/Orders.Domain.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETCoreApp,Version=v3.0": [
+      "Orders.Application >= 1.0.0",
+      "RabbitMQ.Client >= 5.1.1"
+    ]
+  },
+  "packageFolders": {
+    "/Users/ivanpaulovich/.nuget/packages/": {},
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/Users/ivanpaulovich/git/OrdersApi/src/Orders.Api/OrdersApi.Api.csproj",
+      "projectName": "OrdersApi.Api",
+      "projectPath": "/Users/ivanpaulovich/git/OrdersApi/src/Orders.Api/OrdersApi.Api.csproj",
+      "packagesPath": "/Users/ivanpaulovich/.nuget/packages/",
+      "outputPath": "/Users/ivanpaulovich/git/OrdersApi/src/Orders.Api/obj/",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+      ],
+      "configFilePaths": [
+        "/Users/ivanpaulovich/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "netcoreapp3.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "projectReferences": {
+            "/Users/ivanpaulovich/git/OrdersApi/src/Orders.Application/Orders.Application.csproj": {
+              "projectPath": "/Users/ivanpaulovich/git/OrdersApi/src/Orders.Application/Orders.Application.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netcoreapp3.0": {
+        "dependencies": {
+          "RabbitMQ.Client": {
+            "target": "Package",
+            "version": "[5.1.1, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.AspNetCore.App": {
+            "privateAssets": "none"
+          },
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
