@@ -1,9 +1,9 @@
-using Orders.Application.Boundaries;
+using Orders.Application.Boundaries.PlaceOrder;
 
 namespace Orders.Application.Services
 {
     public interface IPublisher
     {
-         void Publish<T>(T message);
+        void PublishOrder(PlaceOrderInput placeOrderInput);
     }
 }

@@ -1,4 +1,4 @@
-using Orders.Application.Boundaries;
+using System;
 using Orders.Application.Boundaries.PlaceOrder;
 using Orders.Application.Services;
 
@@ -13,9 +13,11 @@ namespace Orders.Application.UseCases
             _bus = bus;
         }
 
-        public void Execute(PlaceOrderCommand placeOrderCommand)
+        public void Execute(PlaceOrderInput placeOrderInput)
         {
-            _bus.Publish(placeOrderCommand);
+            Console.WriteLine($"Publishing { placeOrderInput.ToString() }");
+
+            _bus.PublishOrder(placeOrderInput);
         }
     }
 }

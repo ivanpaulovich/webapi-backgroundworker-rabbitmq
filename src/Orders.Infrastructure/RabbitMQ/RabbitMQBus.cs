@@ -1,22 +1,24 @@
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
-using Orders.Application.Boundaries;
+using Orders.Application.Boundaries.PlaceOrder;
 using Orders.Application.Services;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace Orders.Api
+namespace Orders.Infrastructure
 {
-    public class ConsumeRabbitMQHostedService : BackgroundService
+    public class RabbitMQBus : BackgroundService, IPublisher
     {
         private IConnection _connection;
         private IModel _channel;
         private IDispatcher _dispatcher;
 
-        public ConsumeRabbitMQHostedService()
+        public RabbitMQBus(IDispatcher dispatcher)
         {
+            _dispatcher = dispatcher;
             InitRabbitMQ();
         }
 
@@ -26,7 +28,7 @@ namespace Orders.Api
             _connection = factory.CreateConnection();
 
             _channel = _connection.CreateModel();
-            _channel.QueueDeclare("Q1", true, false, false, null);
+            _channel.QueueDeclare("orders", true, false, false, null);
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -34,21 +36,34 @@ namespace Orders.Api
             stoppingToken.ThrowIfCancellationRequested();
 
             var consumer = new EventingBasicConsumer(_channel);
+
             consumer.Received += (ch, ea) =>
             {
-                var content = System.Text.Encoding.UTF8.GetString(ea.Body);
-                HandleMessage(content);
+                var content = Encoding.UTF8.GetString(ea.Body);
+                _dispatcher.Send(ea.RoutingKey, content);
                 _channel.BasicAck(ea.DeliveryTag, false);
             };
 
-            _channel.BasicConsume("Q1", false, consumer);
+            _channel.BasicConsume("orders", false, consumer);
             return Task.CompletedTask;
         }
 
-        private void HandleMessage(string content)
+        public void PublishOrder(PlaceOrderInput placeOrderInput)
         {
-            var command = JsonConvert.DeserializeObject<ICommand>(content);
-            _dispatcher.Send(command);;
+            string json = JsonConvert.SerializeObject(placeOrderInput, Formatting.Indented);
+            Publish("orders", json);
+        }
+
+        private void Publish(string queueName, string json)
+        {
+            byte[] messageBodyBytes = Encoding.UTF8.GetBytes(json);
+
+            _channel.BasicPublish(
+                string.Empty,
+                queueName,
+                basicProperties : null,
+                body : messageBodyBytes
+            );
         }
 
         public override void Dispose()

@@ -1,9 +1,7 @@
-using Orders.Application.Boundaries.PlaceOrder;
-
-namespace Orders.Application.Boundaries
+namespace Orders.Application.Boundaries.PlaceOrder
 {
     public interface IPlaceOrderUseCase
     {
-         void Execute(PlaceOrderCommand placeOrderCommand);
+        void Execute(PlaceOrderInput placeOrderInput);
     }
 }

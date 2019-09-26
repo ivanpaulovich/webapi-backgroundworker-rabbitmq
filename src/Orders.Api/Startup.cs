@@ -10,7 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Orders.Api.Commands;
+using Orders.Api.Controllers;
+using Orders.Application.Boundaries.PlaceOrder;
 using Orders.Application.Services;
+using Orders.Application.UseCases;
+using Orders.Infrastructure;
 
 namespace OrdersApi.WebApi
 {
@@ -27,9 +32,14 @@ namespace OrdersApi.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddHostedService<RabbitMQBus>();
             services.AddSingleton<IPublisher, RabbitMQBus>();
-            services.AddSingleton<ISubscriber, RabbitMQBus>();
-            services.AddHostedService<ConsumeRabbitMQHostedService>();
+
+            services.AddTransient<IPlaceOrderUseCase, PlaceOrder>();
+            services.AddTransient<IProcessOrderUseCase, ProcessOrder>();
+            services.AddTransient<IDispatcher, Dispatcher>();
+            services.AddTransient<ProcessingController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

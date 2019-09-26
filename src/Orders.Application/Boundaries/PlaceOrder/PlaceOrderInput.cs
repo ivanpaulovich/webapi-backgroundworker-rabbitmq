@@ -1,11 +1,11 @@
 namespace Orders.Application.Boundaries.PlaceOrder
 {
-    public class PlaceOrderCommand
+    public class PlaceOrderInput : IPlaceOrderInput
     {
         public int ProductId { get; }
         public int Quantity { get; }
 
-        public PlaceOrderCommand(int productId, int quantity)
+        public PlaceOrderInput(int productId, int quantity)
         {
             ProductId = productId;
             Quantity = quantity;

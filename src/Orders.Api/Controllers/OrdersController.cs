@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Orders.Application.Boundaries.PlaceOrder;
 
 namespace OrdersApi.Api.Controllers
@@ -17,9 +17,7 @@ namespace OrdersApi.Api.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            _placeOrderUseCase.Execute(
-                new PlaceOrderInput(42, 3)
-            );
+            _placeOrderUseCase.Execute(new PlaceOrderInput(42, 3));
             return Ok();
         }
     }

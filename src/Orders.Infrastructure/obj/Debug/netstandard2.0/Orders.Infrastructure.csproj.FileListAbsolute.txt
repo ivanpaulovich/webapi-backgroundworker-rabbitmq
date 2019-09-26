@@ -6,3 +6,8 @@
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Infrastructure/obj/Debug/netstandard2.0/Orders.Infrastructure.AssemblyInfo.cs
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Infrastructure/obj/Debug/netstandard2.0/Orders.Infrastructure.dll
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Infrastructure/obj/Debug/netstandard2.0/Orders.Infrastructure.pdb
+/Users/ivanpaulovich/git/OrdersApi/src/Orders.Infrastructure/bin/Debug/netstandard2.0/Orders.Application.dll
+/Users/ivanpaulovich/git/OrdersApi/src/Orders.Infrastructure/bin/Debug/netstandard2.0/Orders.Domain.dll
+/Users/ivanpaulovich/git/OrdersApi/src/Orders.Infrastructure/bin/Debug/netstandard2.0/Orders.Domain.pdb
+/Users/ivanpaulovich/git/OrdersApi/src/Orders.Infrastructure/bin/Debug/netstandard2.0/Orders.Application.pdb
+/Users/ivanpaulovich/git/OrdersApi/src/Orders.Infrastructure/obj/Debug/netstandard2.0/Orders.Infrastructure.csproj.CopyComplete
