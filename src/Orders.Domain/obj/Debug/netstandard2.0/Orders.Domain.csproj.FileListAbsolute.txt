@@ -1,7 +1,6 @@
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Domain/bin/Debug/netstandard2.0/Orders.Domain.deps.json
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Domain/bin/Debug/netstandard2.0/Orders.Domain.dll
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Domain/bin/Debug/netstandard2.0/Orders.Domain.pdb
-/Users/ivanpaulovich/git/OrdersApi/src/Orders.Domain/obj/Debug/netstandard2.0/Orders.Domain.csprojAssemblyReference.cache
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Domain/obj/Debug/netstandard2.0/Orders.Domain.AssemblyInfoInputs.cache
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Domain/obj/Debug/netstandard2.0/Orders.Domain.AssemblyInfo.cs
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Domain/obj/Debug/netstandard2.0/Orders.Domain.dll
