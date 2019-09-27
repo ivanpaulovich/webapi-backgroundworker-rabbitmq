@@ -46,6 +46,14 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[12.0.2, )"
@@ -116,6 +124,10 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",
@@ -235,6 +247,10 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "Microsoft.Extensions.Hosting": {
               "target": "Package",
               "version": "[3.0.0, )"

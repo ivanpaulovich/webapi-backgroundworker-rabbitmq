@@ -1,6 +1,8 @@
+using MediatR;
+
 namespace Orders.Application.Boundaries.PlaceOrder
 {
-    public class PlaceOrderInput : IPlaceOrderInput
+    public class PlaceOrderInput : IRequest
     {
         public int ProductId { get; }
         public int Quantity { get; }

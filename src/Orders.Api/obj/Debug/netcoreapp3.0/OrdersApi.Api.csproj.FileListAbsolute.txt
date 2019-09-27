@@ -7,6 +7,8 @@
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Api/bin/Debug/netcoreapp3.0/OrdersApi.Api.runtimeconfig.dev.json
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Api/bin/Debug/netcoreapp3.0/OrdersApi.Api.dll
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Api/bin/Debug/netcoreapp3.0/OrdersApi.Api.pdb
+/Users/ivanpaulovich/git/OrdersApi/src/Orders.Api/bin/Debug/netcoreapp3.0/MediatR.dll
+/Users/ivanpaulovich/git/OrdersApi/src/Orders.Api/bin/Debug/netcoreapp3.0/MediatR.Extensions.Microsoft.DependencyInjection.dll
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Api/bin/Debug/netcoreapp3.0/Newtonsoft.Json.dll
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Api/bin/Debug/netcoreapp3.0/RabbitMQ.Client.dll
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Api/bin/Debug/netcoreapp3.0/Orders.Application.dll
