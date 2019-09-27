@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,12 +11,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Orders.Api.Commands;
-using Orders.Api.Controllers;
 using Orders.Application.Boundaries.PlaceOrder;
 using Orders.Application.Services;
 using Orders.Application.UseCases;
 using Orders.Infrastructure;
+using Orders.Infrastructure.MediatR;
+using Orders.Infrastructure.RabbitMQ;
 
 namespace OrdersApi.WebApi
 {
@@ -39,7 +40,7 @@ namespace OrdersApi.WebApi
             services.AddTransient<IPlaceOrderUseCase, PlaceOrder>();
             services.AddTransient<IProcessOrderUseCase, ProcessOrder>();
             services.AddTransient<IDispatcher, Dispatcher>();
-            services.AddTransient<ProcessingController>();
+            services.AddMediatR(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,7 +5,7 @@ namespace Orders.Application.UseCases
 {
     public class ProcessOrder : IProcessOrderUseCase
     {
-        public void Execute(IPlaceOrderInput placeOrderInput)
+        public void Execute(PlaceOrderInput placeOrderInput)
         {
             Console.WriteLine($"Processing { placeOrderInput.ToString() }");
         }

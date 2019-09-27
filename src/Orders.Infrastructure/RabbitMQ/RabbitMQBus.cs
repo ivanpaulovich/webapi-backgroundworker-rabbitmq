@@ -8,7 +8,7 @@ using Orders.Application.Services;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace Orders.Infrastructure
+namespace Orders.Infrastructure.RabbitMQ
 {
     public class RabbitMQBus : BackgroundService, IPublisher
     {
@@ -28,7 +28,7 @@ namespace Orders.Infrastructure
             _connection = factory.CreateConnection();
 
             _channel = _connection.CreateModel();
-            _channel.QueueDeclare("orders", true, false, false, null);
+            _channel.QueueDeclare(typeof(PlaceOrderInput).Name, true, false, false, null);
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -44,14 +44,14 @@ namespace Orders.Infrastructure
                 _channel.BasicAck(ea.DeliveryTag, false);
             };
 
-            _channel.BasicConsume("orders", false, consumer);
+            _channel.BasicConsume(typeof(PlaceOrderInput).Name, false, consumer);
             return Task.CompletedTask;
         }
 
         public void PublishOrder(PlaceOrderInput placeOrderInput)
         {
             string json = JsonConvert.SerializeObject(placeOrderInput, Formatting.Indented);
-            Publish("orders", json);
+            Publish(typeof(PlaceOrderInput).Name, json);
         }
 
         private void Publish(string queueName, string json)

@@ -25,3 +25,5 @@
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Api/obj/Debug/netcoreapp3.0/OrdersApi.Api.csproj.CopyComplete
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Api/obj/Debug/netcoreapp3.0/OrdersApi.Api.dll
 /Users/ivanpaulovich/git/OrdersApi/src/Orders.Api/obj/Debug/netcoreapp3.0/OrdersApi.Api.pdb
+/Users/ivanpaulovich/git/OrdersApi/src/Orders.Api/bin/Debug/netcoreapp3.0/MediatR.dll
+/Users/ivanpaulovich/git/OrdersApi/src/Orders.Api/bin/Debug/netcoreapp3.0/MediatR.Extensions.Microsoft.DependencyInjection.dll
