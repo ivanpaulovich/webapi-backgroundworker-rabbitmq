@@ -1,8 +1,8 @@
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
 using Orders.Application.Boundaries.PlaceOrder;
 using Orders.Application.Services;
 using RabbitMQ.Client;
@@ -50,7 +50,7 @@ namespace Orders.Infrastructure.RabbitMQ
 
         public void PublishOrder(PlaceOrderInput placeOrderInput)
         {
-            string json = JsonConvert.SerializeObject(placeOrderInput, Formatting.Indented);
+            string json = JsonSerializer.Serialize(placeOrderInput);
             Publish(typeof(PlaceOrderInput).Name, json);
         }
 

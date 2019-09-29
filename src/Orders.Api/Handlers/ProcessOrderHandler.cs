@@ -14,10 +14,9 @@ namespace Orders.Api.Handlers
             _processOrderUseCase = processOrderUseCase;
         }
 
-        protected override Task Handle(PlaceOrderInput request, CancellationToken cancellationToken)
+        protected async override Task Handle(PlaceOrderInput request, CancellationToken cancellationToken)
         {
-            _processOrderUseCase.Execute(request);
-            return Task.CompletedTask;
+            await _processOrderUseCase.Execute(request);
         }
     }
 }

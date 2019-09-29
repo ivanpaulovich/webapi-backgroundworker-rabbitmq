@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using MediatR;
-using Newtonsoft.Json;
 using Orders.Application.Boundaries.PlaceOrder;
 using Orders.Application.Services;
 
@@ -21,7 +21,7 @@ namespace Orders.Infrastructure.MediatR
         public void Send(string queueName, string json)
         {
             var messageType = _binding[queueName];
-            var request = (IRequest) JsonConvert.DeserializeObject(json, messageType);
+            var request = (IRequest) JsonSerializer.Deserialize(json, messageType);
             _mediator.Send(request);
         }
     }

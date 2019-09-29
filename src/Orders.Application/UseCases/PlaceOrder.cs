@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Orders.Application.Boundaries.PlaceOrder;
 using Orders.Application.Services;
 
@@ -13,11 +14,13 @@ namespace Orders.Application.UseCases
             _bus = bus;
         }
 
-        public void Execute(PlaceOrderInput placeOrderInput)
+        public Task Execute(PlaceOrderInput placeOrderInput)
         {
             Console.WriteLine($"Publishing { placeOrderInput.ToString() }");
 
             _bus.PublishOrder(placeOrderInput);
+
+            return Task.CompletedTask;
         }
     }
 }
