@@ -16,8 +16,6 @@ namespace Orders.Application.UseCases
 
         public Task Execute(PlaceOrderInput placeOrderInput)
         {
-            Console.WriteLine($"Publishing { placeOrderInput.ToString() }");
-
             _bus.PublishOrder(placeOrderInput);
 
             return Task.CompletedTask;

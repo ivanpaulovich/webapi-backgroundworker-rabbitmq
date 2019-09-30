@@ -1,10 +1,15 @@
+using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using Orders.Application.Boundaries.PlaceOrder;
 using Orders.Application.Services;
+using Polly;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -14,11 +19,15 @@ namespace Orders.Infrastructure.RabbitMQ
     {
         private IConnection _connection;
         private IModel _channel;
-        private IDispatcher _dispatcher;
+        private IMediator _mediator;
+        private IDictionary<string, Type> _binding;
 
-        public RabbitMQBus(IDispatcher dispatcher)
+        public RabbitMQBus(IMediator mediator)
         {
-            _dispatcher = dispatcher;
+            _mediator = mediator;
+            _binding = new Dictionary<string, Type>();
+            _binding.Add(typeof(PlaceOrderInput).Name, typeof(PlaceOrderInput));
+
             InitRabbitMQ();
         }
 
@@ -37,20 +46,38 @@ namespace Orders.Infrastructure.RabbitMQ
 
             var consumer = new EventingBasicConsumer(_channel);
 
-            consumer.Received += (ch, ea) =>
-            {
-                var content = Encoding.UTF8.GetString(ea.Body);
-                _dispatcher.Send(ea.RoutingKey, content);
-                _channel.BasicAck(ea.DeliveryTag, false);
-            };
+            consumer.Received += OnReceived;
 
             _channel.BasicConsume(typeof(PlaceOrderInput).Name, false, consumer);
             return Task.CompletedTask;
         }
 
+        private void OnReceived(object ch, BasicDeliverEventArgs ea)
+        {
+            var policy = Policy.Handle<Exception>()
+                .RetryAsync(3);
+
+            policy.ExecuteAsync(async () => await Send(ea.RoutingKey, ea.Body, ea.DeliveryTag))
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
+        }
+        
+        private async Task Send(string key, byte[] body, ulong deliveryTag)
+        {
+            var messageType = _binding[key];
+            var content = Encoding.UTF8.GetString(body);
+
+            var request = (IRequest) JsonConvert.DeserializeObject(content, messageType);
+            await _mediator.Send(request);
+
+            _channel.BasicAck(deliveryTag, false);
+        }
+
         public void PublishOrder(PlaceOrderInput placeOrderInput)
         {
-            string json = JsonSerializer.Serialize(placeOrderInput);
+            string json = JsonConvert.SerializeObject(placeOrderInput);
+
             Publish(typeof(PlaceOrderInput).Name, json);
         }
 

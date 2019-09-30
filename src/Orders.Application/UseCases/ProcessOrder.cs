@@ -8,8 +8,8 @@ namespace Orders.Application.UseCases
     {
         public Task Execute(PlaceOrderInput placeOrderInput)
         {
-            Console.WriteLine($"Processing { placeOrderInput.ToString() }");
-            return Task.CompletedTask;
+            //return Task.CompletedTask;
+            throw new Exception();
         }
     }
 }

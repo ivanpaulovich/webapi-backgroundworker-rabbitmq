@@ -14,8 +14,6 @@ using Microsoft.Extensions.Logging;
 using Orders.Application.Boundaries.PlaceOrder;
 using Orders.Application.Services;
 using Orders.Application.UseCases;
-using Orders.Infrastructure;
-using Orders.Infrastructure.MediatR;
 using Orders.Infrastructure.RabbitMQ;
 
 namespace OrdersApi.WebApi
@@ -39,7 +37,6 @@ namespace OrdersApi.WebApi
 
             services.AddTransient<IPlaceOrderUseCase, PlaceOrder>();
             services.AddTransient<IProcessOrderUseCase, ProcessOrder>();
-            services.AddTransient<IDispatcher, Dispatcher>();
             services.AddMediatR(typeof(Startup));
         }
 
