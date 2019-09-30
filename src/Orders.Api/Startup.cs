@@ -32,7 +32,7 @@ namespace OrdersApi.WebApi
         {
             services.AddControllers();
 
-            services.AddHostedService<RabbitMQBus>();
+            services.AddSingleton<IHostedService, RabbitMQBus>();
             services.AddSingleton<IPublisher, RabbitMQBus>();
 
             services.AddTransient<IPlaceOrderUseCase, PlaceOrder>();

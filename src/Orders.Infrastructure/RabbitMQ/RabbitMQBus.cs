@@ -15,7 +15,7 @@ using RabbitMQ.Client.Events;
 
 namespace Orders.Infrastructure.RabbitMQ
 {
-    public class RabbitMQBus : BackgroundService, IPublisher
+    public class RabbitMQBus : IHostedService, IPublisher, IDisposable
     {
         private IConnection _connection;
         private IModel _channel;
@@ -27,7 +27,6 @@ namespace Orders.Infrastructure.RabbitMQ
             _mediator = mediator;
             _binding = new Dictionary<string, Type>();
             _binding.Add(typeof(PlaceOrderInput).Name, typeof(PlaceOrderInput));
-
             InitRabbitMQ();
         }
 
@@ -40,10 +39,8 @@ namespace Orders.Infrastructure.RabbitMQ
             _channel.QueueDeclare(typeof(PlaceOrderInput).Name, true, false, false, null);
         }
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        public virtual Task StartAsync(CancellationToken cancellationToken)
         {
-            stoppingToken.ThrowIfCancellationRequested();
-
             var consumer = new EventingBasicConsumer(_channel);
 
             consumer.Received += OnReceived;
@@ -54,21 +51,28 @@ namespace Orders.Infrastructure.RabbitMQ
 
         private void OnReceived(object ch, BasicDeliverEventArgs ea)
         {
-            var policy = Policy.Handle<Exception>()
+            var retryPolicy = Policy
+                .Handle<Exception>()
                 .RetryAsync(3);
 
-            policy.ExecuteAsync(async () => await Send(ea.RoutingKey, ea.Body, ea.DeliveryTag))
+            var fallbackPolicy = Policy
+                .Handle<Exception>()
+                .FallbackAsync(async (cancellationToken) => await Task.Run(() => Console.WriteLine(ea.RoutingKey)));
+
+            fallbackPolicy
+                .WrapAsync(retryPolicy)
+                .ExecuteAsync(async () => await Send(ea.RoutingKey, ea.Body, ea.DeliveryTag).ConfigureAwait(false))
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
         }
-        
+
         private async Task Send(string key, byte[] body, ulong deliveryTag)
         {
             var messageType = _binding[key];
             var content = Encoding.UTF8.GetString(body);
 
-            var request = (IRequest) JsonConvert.DeserializeObject(content, messageType);
+            var request = (IRequest)JsonConvert.DeserializeObject(content, messageType);
             await _mediator.Send(request);
 
             _channel.BasicAck(deliveryTag, false);
@@ -88,16 +92,20 @@ namespace Orders.Infrastructure.RabbitMQ
             _channel.BasicPublish(
                 string.Empty,
                 queueName,
-                basicProperties : null,
-                body : messageBodyBytes
+                basicProperties: null,
+                body: messageBodyBytes
             );
         }
 
-        public override void Dispose()
+        public void Dispose()
         {
-            _channel.Close();
-            _connection.Close();
-            base.Dispose();
+            _channel?.Close();
+            _connection?.Close();
+        }
+
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            return Task.CompletedTask;
         }
     }
 }
