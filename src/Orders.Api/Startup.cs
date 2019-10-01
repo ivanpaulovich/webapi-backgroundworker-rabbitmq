@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -16,7 +15,7 @@ using Orders.Application.Services;
 using Orders.Application.UseCases;
 using Orders.Infrastructure.RabbitMQ;
 
-namespace OrdersApi.WebApi
+namespace Orders.Api
 {
     public class Startup
     {
@@ -32,12 +31,10 @@ namespace OrdersApi.WebApi
         {
             services.AddControllers();
 
-            services.AddSingleton<IHostedService, RabbitMQBus>();
             services.AddSingleton<IPublisher, RabbitMQBus>();
 
             services.AddTransient<IPlaceOrderUseCase, PlaceOrder>();
             services.AddTransient<IProcessOrderUseCase, ProcessOrder>();
-            services.AddMediatR(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

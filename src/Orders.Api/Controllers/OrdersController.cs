@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using Orders.Application.Boundaries.PlaceOrder;
 
-namespace OrdersApi.Api.Controllers
+namespace Orders.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -15,8 +15,8 @@ namespace OrdersApi.Api.Controllers
             _placeOrderUseCase = placeOrderUseCase;
         }
 
-        [HttpPost]
-        public IActionResult Post([FromForm]int productId, [FromForm]int quantity)
+        [HttpGet]
+        public IActionResult Get([FromForm]int productId, [FromForm]int quantity)
         {
             _placeOrderUseCase.Execute(new PlaceOrderInput(productId, quantity, DateTime.Now));
             return Ok();
